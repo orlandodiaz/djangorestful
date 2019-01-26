@@ -8,6 +8,7 @@ from .serializers import (
     UpdatePasswordSerializer,
     PasswordResetRequestSerializer,
     VerifyPasswordResetTokenSerializer,
+    VerifyEmailSerializer,
 )
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
@@ -22,7 +23,80 @@ from django.template.loader import render_to_string
 from django.utils.http import urlsafe_base64_encode
 from djangorestful.settings import FRONTEND_DOMAIN
 
+from rest_framework.serializers import Serializer
+
 # User = get_user_model()
+
+# @users.route('/request_verify_email', methods=['GET', 'POST'])
+# def request_verify_email():
+#     current_user.send_verification_email()
+#     alert.info(
+#         'A verification email has been sent to the email address specified')
+#     return redirect(url_for('users.preferences'))
+
+
+# @users.route('/verify/<token>', methods=['GET', 'POST'])
+# def verify_email(token):
+#
+#     try:
+#         user = User.verify_email_token(token)
+#     except Exception as e:
+#         alert.error('Error validating email token')
+#
+#     else:
+#         if user.is_verified:
+#             flash('Your account has already been verified')
+#             return redirect(url_for('main.index'))
+#
+#     if user:
+#         user.is_verified = True
+#         db.session.add(user)
+#         db.session.commit()
+#         alert.info('Your email has been verified')
+#         return redirect(url_for('main.index'))
+class VerifyEmailView(APIView):
+    serializer_class = VerifyEmailSerializer
+
+    def post(self, request):
+        serializer = VerifyEmailSerializer(data=request.data)
+
+        if serializer.is_valid():
+
+            # serializer.save()
+            print(serializer.data)
+            print(
+                "serializer.data['token']", serializer.validated_data["token"]
+            )
+
+            token = serializer.validated_data["token"]
+
+            # print("user", user)
+
+            user = User.verify_email_token(token)
+
+            if user:
+                user.profile.email_confirmed = True
+                user.save()
+
+                return Response(
+                    {"message": "Email was verified successfully"},
+                    status=status.HTTP_200_OK,
+                )
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class RequestVerifyEmailView(APIView):
+
+    serializer_class = Serializer
+
+    def post(self, request):
+
+        user = request.user
+        user.send_verification_email()
+
+        return Response({"message": "ok"}, status=status.HTTP_200_OK)
+
+    # return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 class PasswordResetRequestView(APIView):
@@ -65,23 +139,14 @@ class PasswordResetView(UpdateAPIView):
 
     queryset = User.objects.all()
 
-    # def get_object(self):
-    #     queryset = self.get_queryset()
-    #     obj = get_object_or_404(queryset, username=self.request.user)
-    #     return obj
-
     def get_object(self):
 
         print(self)
-
         print("ss")
         queryset = self.get_queryset()
-        #
         token = self.kwargs["token"]
         print(token)
-        #
         obj = User.verify_reset_password_token(token)
-
         return obj
 
 

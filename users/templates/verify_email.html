@@ -1,0 +1,14 @@
+{% autoescape off %}
+Hi {{ user.username }},
+
+Please click on the link below to verify your email
+
+{#{{ url_for('users.verify_email', token=token, _external=True) }}#}
+
+{{ domain }}/verify_email/{{ token }}
+
+
+{#{% url 'activate' token=token %}#}
+{##}
+{#http://{{ domain }}{% url 'activate' token=token %}#}
+{% endautoescape %}

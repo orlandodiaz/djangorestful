@@ -24,6 +24,60 @@ from django.template.loader import render_to_string
 from django.utils.http import urlsafe_base64_encode
 
 
+class VerifyEmailSerializer(Serializer):
+
+    token = CharField()
+
+    class Meta:
+        fields = ("token",)
+
+    def validate_token(self, token):
+        """ Logic for checking if field is valid or invalid
+
+        The method must in the following form:  validate_fieldname
+        Args:
+            self (MySerializer): Contains data dictionary. No way to access request
+            field (str): field from data
+
+        Exceptions:
+            ValidationError: Raise this to invalidate a field
+
+        Returns:
+            field (str): Return the field if everything is fine
+
+        """
+
+        user = User.verify_email_token(token)
+
+        if not user:
+            raise ValidationError("Email could not be verified")
+
+        self_obj = self
+        print(token)
+        print("debug")
+        a = 4
+        return token
+
+    # def save(self):
+    #     print("save self", self)
+    #
+    # def update(self, instance, validated_data):
+    #     """  Update model instance
+    #     Args:
+    #         instance (obj): The instance of the current user
+    #         validated_data (dict): Dictionary of validated data
+    #
+    #     Returns:
+    #         instance (obj): The user instance
+    #
+    #     """
+    #
+    #     print("instance", instance)
+    #
+    #     instance.profile.email_confirmed = True
+    #     instance.save()
+
+
 class PasswordResetRequestSerializer(Serializer):
 
     email = EmailField()
@@ -38,23 +92,19 @@ class PasswordResetRequestSerializer(Serializer):
             raise ValidationError("That email is not associated with any user")
 
     def save(self):
-        """
 
-
-        Returns:
-
-        """
         print("self.validated_data['email']", self.validated_data["email"])
         pass
 
 
 class UserSerializer(ModelSerializer):
-    email_confirmed = BooleanField(source="profile.email_confirmed", read_only=True)
+    email_confirmed = BooleanField(
+        source="profile.email_confirmed", read_only=True
+    )
 
     class Meta:
         model = User
         # write_only_fields = ("password",)
-
 
         fields = (
             "username",
