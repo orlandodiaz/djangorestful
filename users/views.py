@@ -1,6 +1,5 @@
 from rest_framework import permissions
 from rest_framework.generics import CreateAPIView, UpdateAPIView
-from rest_framework.views import APIView
 from django.contrib.auth import get_user_model
 from .serializers import (
     UserSerializer,
@@ -18,10 +17,8 @@ from rest_framework.views import APIView
 from .models import CustomUser as User
 
 # Email sending
-from django.contrib.sites.shortcuts import get_current_site
 from django.template.loader import render_to_string
-from django.utils.http import urlsafe_base64_encode
-from backend.settings import FRONTEND_DOMAIN
+from backend.settings.base import FRONTEND_DOMAIN
 
 from rest_framework.serializers import Serializer
 
@@ -234,7 +231,6 @@ class HelloWorldView(APIView):
 
 
 from rest_framework.generics import RetrieveAPIView
-from .serializers import ModelSerializer
 from django.shortcuts import get_object_or_404
 
 
