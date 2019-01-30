@@ -60,7 +60,7 @@ ROOT_URLCONF = "backend.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [str(BASE_DIR / "../frontend/build/static"),
+        "DIRS": [str(BASE_DIR / "../frontend/build/"),
 ],
         "APP_DIRS": True,
         "OPTIONS": {
