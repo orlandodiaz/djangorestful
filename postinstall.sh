@@ -1,3 +1,4 @@
+echo "Post install script initialized" 
 $FOLDER="frontend"
 $URL="https://github.com/orlandodiaz/redux-auth.git"
 if [ ! -d "$FOLDER" ] ; then
