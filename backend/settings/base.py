@@ -9,13 +9,14 @@ https://docs.djangoproject.com/en/2.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/2.1/ref/settings/
 """
+from pathlib import Path
 
 import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 # BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-BASE_DIR = os.path.dirname(os.path.realpath(os.path.dirname(__file__) + "/.."))
-
+# BASE_DIR = os.path.dirname(os.path.realpath(os.path.dirname(__file__) + "/.."))
+BASE_DIR = Path(__file__).resolve().parent.parent
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.1/howto/deployment/checklist/
@@ -59,7 +60,7 @@ ROOT_URLCONF = "backend.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [os.path.join(BASE_DIR, 'frontend/build'),
+        "DIRS": [str(BASE_DIR / "frontend/build/static"),
 ],
         "APP_DIRS": True,
         "OPTIONS": {
@@ -145,4 +146,6 @@ CORS_ORIGIN_ALLOW_ALL = True
 
 FRONTEND_DOMAIN = "http://localhost:3000"
 
-STATIC_ROOT = os.path.join(BASE_DIR, 'frontend/build/static')
+# STATIC_ROOT = os.path.join(BASE_DIR, 'frontend/build/static')
+
+STATIC_ROOT = str(BASE_DIR / "frontend/build/static")
