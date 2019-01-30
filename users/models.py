@@ -8,7 +8,7 @@ import jwt
 from time import time
 from django.conf.global_settings import SECRET_KEY
 from django.template.loader import render_to_string
-from djangorestful.settings import FRONTEND_DOMAIN
+from backend.settings import FRONTEND_DOMAIN
 
 
 class CustomUser(AbstractUser):

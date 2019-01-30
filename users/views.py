@@ -21,7 +21,7 @@ from .models import CustomUser as User
 from django.contrib.sites.shortcuts import get_current_site
 from django.template.loader import render_to_string
 from django.utils.http import urlsafe_base64_encode
-from djangorestful.settings import FRONTEND_DOMAIN
+from backend.settings import FRONTEND_DOMAIN
 
 from rest_framework.serializers import Serializer
 
