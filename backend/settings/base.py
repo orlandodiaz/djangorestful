@@ -143,3 +143,4 @@ CORS_ORIGIN_ALLOW_ALL = True
 
 FRONTEND_DOMAIN = "http://localhost:3000"
 
+STATIC_ROOT = os.path.join(BASE_DIR, '../frontend/build/static')

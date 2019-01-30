@@ -7,9 +7,11 @@ from django.db import models
 import jwt
 from time import time
 from django.conf.global_settings import SECRET_KEY
-from django.template.loader import render_to_string
 from backend.settings.base import FRONTEND_DOMAIN
 
+
+
+from django.template.loader import (render_to_string)
 
 class CustomUser(AbstractUser):
     email = CharField(max_length=200, unique=True)
