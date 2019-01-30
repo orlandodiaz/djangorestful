@@ -60,7 +60,7 @@ ROOT_URLCONF = "backend.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [str(BASE_DIR / "frontend/build/static"),
+        "DIRS": [str(BASE_DIR / "../frontend/build/static"),
 ],
         "APP_DIRS": True,
         "OPTIONS": {
@@ -148,4 +148,4 @@ FRONTEND_DOMAIN = "http://localhost:3000"
 
 # STATIC_ROOT = os.path.join(BASE_DIR, 'frontend/build/static')
 
-STATIC_ROOT = str(BASE_DIR / "frontend/build/static")
+STATIC_ROOT = str(BASE_DIR / "../frontend/build/static")
