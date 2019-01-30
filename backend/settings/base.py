@@ -148,4 +148,4 @@ FRONTEND_DOMAIN = "http://localhost:3000"
 
 # STATIC_ROOT = os.path.join(BASE_DIR, 'frontend/build/static')
 
-STATIC_ROOT = str(BASE_DIR / "../frontend/build/static")
+STATIC_ROOT = str(BASE_DIR / "../frontend/build/static/")
