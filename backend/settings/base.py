@@ -16,7 +16,7 @@ import os
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 # BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # BASE_DIR = os.path.dirname(os.path.realpath(os.path.dirname(__file__) + "/.."))
-BASE_DIR = Path(__file__).resolve().parent.parent
+BASE_DIR = Path(__file__).resolve().parent.parent.parent
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.1/howto/deployment/checklist/
@@ -60,7 +60,7 @@ ROOT_URLCONF = "backend.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [str(BASE_DIR / "../frontend/build/"),
+        "DIRS": [str(BASE_DIR / "frontend/build/"),
 ],
         "APP_DIRS": True,
         "OPTIONS": {
@@ -148,4 +148,4 @@ FRONTEND_DOMAIN = "http://localhost:3000"
 
 # STATIC_ROOT = os.path.join(BASE_DIR, 'frontend/build/static')
 
-STATIC_ROOT = str(BASE_DIR / "../frontend/build/static/")
+STATIC_ROOT = str(BASE_DIR / "frontend/build/static")
