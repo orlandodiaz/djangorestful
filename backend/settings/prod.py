@@ -6,7 +6,7 @@ DEBUG = True
 
 # Add your domain to allowed hosts:
 ALLOWED_HOSTS = [
-    'orr-redux-auth2.herokuapp.com',
+    'orr-redux-auth-demo.herokuapp.com',
 ]
 
 DATABASES['default'] = dj_database_url.config(
